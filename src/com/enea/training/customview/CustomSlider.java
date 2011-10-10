@@ -2,6 +2,7 @@ package com.enea.training.customview;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -38,7 +39,14 @@ public class CustomSlider extends View {
       final int defStyle) {
     super(context, attrs, defStyle);
 
-	mIsVertical = true;
+    final TypedArray a = context.obtainStyledAttributes(attrs,
+        R.styleable.CustomSlider);
+    final int vertical = a.getInt(R.styleable.CustomSlider_orientation, 0);
+    mIsVertical = (vertical != 0);
+
+    final float max = a.getFloat(R.styleable.CustomSlider_max, 1.0f);
+    final float min = a.getFloat(R.styleable.CustomSlider_min, -1.0f);
+    setMinMax(min, max);
 
     final Resources res = context.getResources();
     if (mIsVertical) {
@@ -49,8 +57,6 @@ public class CustomSlider extends View {
       mBackground = res.getDrawable(R.drawable.background_horizontal);
     }
 
-    mMin = -1.0f;
-    mMax = 1.0f;
     mPosition = (mMax - mMin) / 2 + mMin;
     mPositionListener = null;
     setOnTouchListener(new OnTouchListener() {
