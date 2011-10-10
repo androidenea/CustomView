@@ -74,9 +74,15 @@ public class CustomSlider extends View {
     if (mViewRect == null) {
       mViewRect = new Rect();
       getDrawingRect(mViewRect);
-      mIndicatorOffset = mIndicator.getIntrinsicWidth();
-      mIndicatorMaxPos = mViewRect.right - mIndicatorOffset;
-      mIndicatorMinPos = mViewRect.left + mIndicatorOffset;
+      if (mIsVertical) {
+        mIndicatorOffset = mIndicator.getIntrinsicHeight();
+        mIndicatorMaxPos = mViewRect.top + mIndicatorOffset;
+        mIndicatorMinPos = mViewRect.bottom - mIndicatorOffset;
+      } else {
+        mIndicatorOffset = mIndicator.getIntrinsicWidth();
+        mIndicatorMaxPos = mViewRect.right - mIndicatorOffset;
+        mIndicatorMinPos = mViewRect.left + mIndicatorOffset;
+      }
       mBackground.setBounds(mViewRect.left, mViewRect.top, mViewRect.right,
           mViewRect.bottom);
     }
@@ -86,11 +92,19 @@ public class CustomSlider extends View {
     final int right;
     final int top;
     final int bottom;
-    pos = mIndicatorMinPos
-        + ((mIndicatorMaxPos - mIndicatorMinPos) / (mMax - mMin))
-        * (mPosition - mMin);
-    left = (int) pos - (mIndicator.getIntrinsicWidth() / 2);
-    top = mViewRect.centerY() - (mIndicator.getIntrinsicHeight() / 2);
+    if (mIsVertical) {
+      pos = mIndicatorMaxPos
+          + ((mIndicatorMinPos - mIndicatorMaxPos) / (mMax - mMin))
+          * (mMax - mPosition);
+      left = mViewRect.centerX() - (mIndicator.getIntrinsicWidth() / 2);
+      top = (int) pos - (mIndicator.getIntrinsicHeight() / 2);
+    } else {
+      pos = mIndicatorMinPos
+          + ((mIndicatorMaxPos - mIndicatorMinPos) / (mMax - mMin))
+          * (mPosition - mMin);
+      left = (int) pos - (mIndicator.getIntrinsicWidth() / 2);
+      top = mViewRect.centerY() - (mIndicator.getIntrinsicHeight() / 2);
+    }
     right = left + mIndicator.getIntrinsicWidth();
     bottom = top + mIndicator.getIntrinsicHeight();
     mIndicator.setBounds(left, top, right, bottom);
@@ -104,7 +118,11 @@ public class CustomSlider extends View {
       final int heightMeasureSpec) {
     super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-    setMeasuredDimension(getMeasuredWidth(), mIndicator.getIntrinsicHeight());
+    if (mIsVertical) {
+      setMeasuredDimension(mIndicator.getIntrinsicWidth(), getMeasuredHeight());
+    } else {
+      setMeasuredDimension(getMeasuredWidth(), mIndicator.getIntrinsicHeight());
+    }
   }
 
   public float getMin() {
