@@ -10,6 +10,7 @@ import com.enea.training.customview.CustomSlider.CustomSliderPositionListener;
 public class CustomViewActivity extends Activity {
   private TextView     mValues;
   private CustomSlider mSliderHorizontal;
+  private CustomSlider mSliderVertical;
 
   @Override
   public void onCreate(final Bundle savedInstanceState) {
@@ -24,15 +25,19 @@ public class CustomViewActivity extends Activity {
         displayValues();
       }
     });
+    mSliderVertical = (CustomSlider) findViewById(R.id.slider_vertical);
+    mSliderVertical.setPositionListener(new CustomSliderPositionListener() {
+      public void onPositionChange(final float newPosition) {
+        displayValues();
+      }
+    });
 
-    mSliderHorizontal.setMinMax(-100.0f, 100.0f);
-    mSliderHorizontal.setPosition(30.0f);
     displayValues();
   }
 
   void displayValues() {
-    final String str = String.format("Horizontal: %3.2f",
-        mSliderHorizontal.getPosition());
+    final String str = String.format("Horizontal: %3.2f\nVertical: %3.2f",
+        mSliderHorizontal.getPosition(), mSliderVertical.getPosition());
     mValues.setText(str);
   }
 
@@ -41,5 +46,10 @@ public class CustomViewActivity extends Activity {
     float max = mSliderHorizontal.getMax();
     float newPos = (max - min) / 2 + min;
     mSliderHorizontal.setPosition(newPos);
+
+    min = mSliderVertical.getMin();
+    max = mSliderVertical.getMax();
+    newPos = (max - min) / 2 + min;
+    mSliderVertical.setPosition(newPos);
   }
 }
