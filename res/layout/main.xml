@@ -4,10 +4,10 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-    <SeekBar android:id="@+id/slider"
+    <com.enea.training.customview.CustomSlider android:id="@+id/slider"
       android:layout_height="wrap_content"
       android:layout_width="fill_parent"
       android:layout_alignParentLeft="true"
       android:layout_alignParentTop="true"
-/>
+    />
 </RelativeLayout>
