@@ -78,4 +78,48 @@ public class CustomSlider extends View {
 
     setMeasuredDimension(getMeasuredWidth(), mIndicator.getIntrinsicHeight());
   }
+
+  public float getMin() {
+    return mMin;
+  }
+
+  public float getMax() {
+    return mMax;
+  }
+
+  public float getPosition() {
+    return mPosition;
+  }
+
+  public void setPosition(float position) {
+    position = within(position, mMin, mMax);
+    if (position != mPosition) {
+      mPosition = position;
+      invalidate();
+    }
+  }
+
+  private static float within(float position, final float min, final float max) {
+    if (position < min) {
+      position = min;
+    }
+    if (position > max) {
+      position = max;
+    }
+    return position;
+  }
+
+  public void setMinMax(final float min, final float max) {
+    if ((min != mMin) || (max != mMax)) {
+      if (min > max) {
+        throw new IllegalArgumentException(
+            "setMinMax: min must be smaller than max.");
+      }
+      mMin = min;
+      mMax = max;
+      setPosition(mPosition);
+      invalidate();
+    }
+  }
+
 }
