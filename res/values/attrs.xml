@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="CustomSlider">
+    <attr name="orientation">
+      <enum name="horizontal" value="0" />
+      <enum name="vertical" value="1" />
+    </attr>
+    <attr name="max" format="float"/>
+    <attr name="min" format="float"/>
+  </declare-styleable>
+</resources>
