@@ -4,10 +4,24 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-    <com.enea.training.customview.CustomSlider android:id="@+id/slider"
+    <com.enea.training.customview.CustomSlider android:id="@+id/slider_horizontal"
       android:layout_height="wrap_content"
       android:layout_width="fill_parent"
       android:layout_alignParentLeft="true"
       android:layout_alignParentTop="true"
     />
+    <Button android:id="@+id/button_reset"
+      android:text="@string/reset"
+      android:onClick="onReset"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_alignParentBottom="true"
+      />
+    <TextView android:id="@+id/values"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_above="@id/button_reset"
+      />
 </RelativeLayout>
