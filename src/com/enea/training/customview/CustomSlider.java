@@ -56,8 +56,13 @@ public class CustomSlider extends View {
     setOnTouchListener(new OnTouchListener() {
       public boolean onTouch(final View v, final MotionEvent event) {
         final float pos;
-        pos = (mMin + ((mMax - mMin) / (mIndicatorMaxPos - mIndicatorMinPos))
+        if (mIsVertical) {
+          pos = (mMax - ((mMax - mMin) / (mIndicatorMinPos - mIndicatorMaxPos))
+              * event.getY());
+        } else {
+          pos = (mMin + ((mMax - mMin) / (mIndicatorMaxPos - mIndicatorMinPos))
               * event.getX());
+        }
         setPosition(pos);
         return true;
       }
