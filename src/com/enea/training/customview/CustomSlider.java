@@ -9,6 +9,9 @@ import android.util.AttributeSet;
 import android.view.View;
 
 public class CustomSlider extends View {
+  interface CustomSliderPositionListener {
+    void onPositionChange(float newPosition);
+  }
 
   private final Drawable               mIndicator;
   private final Drawable               mBackground;
@@ -19,6 +22,7 @@ public class CustomSlider extends View {
   private int                          mIndicatorOffset;
   private int                          mIndicatorMaxPos;
   private int                          mIndicatorMinPos;
+  private CustomSliderPositionListener mPositionListener;
 
   public CustomSlider(final Context context) {
     this(context, null, 0);
@@ -39,6 +43,7 @@ public class CustomSlider extends View {
     mMin = -1.0f;
     mMax = 1.0f;
     mPosition = (mMax - mMin) / 2 + mMin;
+    mPositionListener = null;
   }
 
   @Override
@@ -96,6 +101,9 @@ public class CustomSlider extends View {
     if (position != mPosition) {
       mPosition = position;
       invalidate();
+      if (mPositionListener != null) {
+        mPositionListener.onPositionChange(mPosition);
+      }
     }
   }
 
@@ -122,4 +130,7 @@ public class CustomSlider extends View {
     }
   }
 
+  public void setPositionListener(final CustomSliderPositionListener listener) {
+    mPositionListener = listener;
+  }
 }
