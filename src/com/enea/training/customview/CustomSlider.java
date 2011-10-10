@@ -70,4 +70,12 @@ public class CustomSlider extends View {
     mBackground.draw(canvas);
     mIndicator.draw(canvas);
   }
+
+  @Override
+  protected void onMeasure(final int widthMeasureSpec,
+      final int heightMeasureSpec) {
+    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+    setMeasuredDimension(getMeasuredWidth(), mIndicator.getIntrinsicHeight());
+  }
 }
