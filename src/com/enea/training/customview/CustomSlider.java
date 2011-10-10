@@ -41,8 +41,13 @@ public class CustomSlider extends View {
 	mIsVertical = true;
 
     final Resources res = context.getResources();
-    mIndicator = res.getDrawable(R.drawable.indicator_horizontal);
-    mBackground = res.getDrawable(R.drawable.background_horizontal);
+    if (mIsVertical) {
+      mIndicator = res.getDrawable(R.drawable.indicator_vertical);
+      mBackground = res.getDrawable(R.drawable.background_vertical);
+    } else {
+      mIndicator = res.getDrawable(R.drawable.indicator_horizontal);
+      mBackground = res.getDrawable(R.drawable.background_horizontal);
+    }
 
     mMin = -1.0f;
     mMax = 1.0f;
