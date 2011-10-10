@@ -24,6 +24,7 @@ public class CustomSlider extends View {
   private int                          mIndicatorMaxPos;
   private int                          mIndicatorMinPos;
   private CustomSliderPositionListener mPositionListener;
+  private boolean                      mIsVertical;
 
   public CustomSlider(final Context context) {
     this(context, null, 0);
@@ -36,6 +37,8 @@ public class CustomSlider extends View {
   public CustomSlider(final Context context, final AttributeSet attrs,
       final int defStyle) {
     super(context, attrs, defStyle);
+
+	mIsVertical = true;
 
     final Resources res = context.getResources();
     mIndicator = res.getDrawable(R.drawable.indicator_horizontal);
