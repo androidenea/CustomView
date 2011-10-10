@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class CustomSlider extends View {
@@ -44,6 +45,15 @@ public class CustomSlider extends View {
     mMax = 1.0f;
     mPosition = (mMax - mMin) / 2 + mMin;
     mPositionListener = null;
+    setOnTouchListener(new OnTouchListener() {
+      public boolean onTouch(final View v, final MotionEvent event) {
+        final float pos;
+        pos = (mMin + ((mMax - mMin) / (mIndicatorMaxPos - mIndicatorMinPos))
+              * event.getX());
+        setPosition(pos);
+        return true;
+      }
+    });
   }
 
   @Override
